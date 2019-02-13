@@ -1,15 +1,19 @@
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity ^0.5.0;
 
 contract C01HelloWorld {
-    string public myString = "Hello World";
+    uint256 public myUint;
     
-    function setMyString(string memory _myString) public {
-        myString = _myString;
+    function setMyUint(uint _myUint) public {
+        myUint = _myUint;
     }
     
-    function getMyString() public view returns(string memory) {
-        return myString;
+    string public helloWorld = "Hello World!";
+    
+    function writeHelloWorld(string memory _helloWorld) public {
+        helloWorld = _helloWorld;
     }
-
-	
+    
+    function getHelloWorld() public view returns(string memory) {
+        return helloWorld;
+    }
 }
