@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-contract MappngsStructs {
+contract C08MappingsStruct {
     
     /**
      * Example 1:
@@ -35,11 +35,15 @@ contract MappngsStructs {
         myBalanceForAddress[msg.sender] += msg.value;
     } 
     
-    function withdrawMapping(address _to, uint _amount) public {
+    function withdrawMapping(address payable _to, uint _amount) public {
         /**
          * Check if enough balance is available
          * */
         require(myBalanceForAddress[msg.sender] >= _amount, "Error: Not enough balance");
+
+        /**
+         * Check if there is a wrap around (balance after decrement must be smaller than before!)
+         */
         assert(myBalanceForAddress[msg.sender] - _amount <= myBalanceForAddress[msg.sender]);
         
         /**
@@ -47,6 +51,13 @@ contract MappngsStructs {
          * */
         myBalanceForAddress[msg.sender] -= _amount;
         _to.transfer(_amount);
+    }
+
+    function withdrawMappingWihtoutExceptions(address payable _to, uint _amount) public {
+        if(myBalanceForAddress[msg.sender] >= _amount) {
+            myBalanceForAddress[msg.sender] -= _amount;
+            _to.transfer(_amount);
+        }
     }
      
     /**
@@ -75,12 +86,20 @@ contract MappngsStructs {
         myStructForAddress[_for].lastUpdated = now;
     }
     
-    function withdrawStruct(address _to, uint _amount) public {
+    function withdrawStruct(address payable _to, uint _amount) public {
         require(myStructForAddress[msg.sender].balance >= _amount, "Error, not enough balance");
         assert(myStructForAddress[msg.sender].balance - _amount <= myStructForAddress[msg.sender].balance);
         
         myStructForAddress[msg.sender].balance -= _amount;
         
         _to.transfer(_amount);
+    }
+
+    
+    function withdrawStructWihtoutExceptions(address payable _to, uint _amount) public {
+        if(myStructForAddress[msg.sender].balance >= _amount) {
+            myStructForAddress[msg.sender].balance -= _amount;
+            _to.transfer(_amount);
+        }
     }
 }
