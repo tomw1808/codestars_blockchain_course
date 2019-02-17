@@ -1,4 +1,4 @@
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity ^0.5.0;
 
 /**
  * Arrays example for the course
@@ -7,7 +7,7 @@ pragma solidity >=0.5.0 <0.6.0;
  * https://solidity.readthedocs.io/en/latest/types.html#arrays
  * */
      
-contract Arrays {
+contract C07Arrays {
     
     
     uint[5] public arrayFixedSize;

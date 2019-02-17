@@ -1,4 +1,4 @@
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity ^0.5.0;
 
 contract GlobalObjects {
     /**
@@ -8,22 +8,21 @@ contract GlobalObjects {
      * https://solidity.readthedocs.io/en/v0.4.25/units-and-global-variables.html
      * */
      
-    uint balance;
+    address owner;
+    uint myBalance;
     
-    function payMeWillFail() public {
-        //function will fail because not payable if transferred ether
+    function setTheOwner(address _address) public {
+        owner = _address;
     }
     
     function payMeSomething() payable public {
-        balance += msg.value;
+        myBalance += msg.value;
     }
     
     function withdraw(address payable _to) public {
-        if(msg.sender == 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c) { 
-            //we haven't learned exceptions yet, so an IF will do
-            _to.transfer(address(this).balance);
+        if(msg.sender == owner) {
+            _to.transfer(1000000000000000000);
         }
     }
-    
     
 }

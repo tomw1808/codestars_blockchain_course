@@ -1,4 +1,4 @@
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity ^0.5.0;
 
 contract Variables {
     
@@ -43,18 +43,17 @@ contract Variables {
      * Must be payable in order to use .transfer
      * */
     address payable public myAddress;
-     
-    function setAddress(address payable _myAddress) public {
-       myAddress = _myAddress;
+    
+    function setAddress(address payable _address) public {
+        myAddress = _address;
     }
-     
-    function sendEtherToAddress() public {
-        uint totalBalance = address(this).balance;
-        myAddress.transfer(totalBalance);
+    
+    function payme() payable public {
         
-        //also low level functions, but it's too early here
-        
-        address myAddress2 = 0xdCad3a6d3569DF655070DEd06cb7A1b2Ccd1D3AD; //Failed checksum
+    }
+    
+    function transferTheMoneyOut() public {
+        myAddress.transfer(address(this).balance);
     }
      
      //address literals like 0xdCad3a6d3569DF655070DEd06cb7A1b2Ccd1D3AF have to pass the checksum test for addresses, or else they are treated as bytes20
@@ -74,11 +73,9 @@ contract Variables {
     function myBytesCompare() public view returns(bool) {
         return myBytes1 < myBytes32;
     }
-     
-    function myBytesGetLength() public view returns(uint8, uint8) {
-        return (myBytes1.length, myBytes32.length);
-    } 
-     
-    string public myString = "abc"; //Dynamic Size byte array
+    
+    function getMyBytesLength() public view returns(uint) {
+        return myBytes1.length;
+    }
      
 }

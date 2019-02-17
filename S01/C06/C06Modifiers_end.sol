@@ -1,46 +1,41 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
-contract Modifiers {
-    /**
-     * This is a modifiers example for the course (checkout the readme)
-     * Read the full docs here
-     * https://solidity.readthedocs.io/en/latest/structure-of-a-contract.html#function-modifiers
-     * */
-     
-     bool auctionRunning = true;
-     address owner;
-
-     constructor() public {
-         owner = msg.sender;
-     }
-     
-     modifier onlyOwner() {
-         require(msg.sender == owner);
-         _;
-     }
-     
-     modifier onlyDuringActiveAuction() {
-         require(auctionRunning);
-         _;
-     }
-     
-     function setAuctionRunning(bool _auctionRunning) onlyOwner public {
-             auctionRunning = _auctionRunning;
-     }
-     
-     function moveOwnership(address _newOwner) onlyOwner public {
-             owner = _newOwner;
-     }
-     
-     function bidOnItem(uint _itemId) onlyDuringActiveAuction public payable {
-
-        //do something with the money
+contract C06ConstructorModifier {
+    
+    address public owner;
+    
+    bool public auctionIsRunning = true;
+    
+    constructor() public {
+        owner = msg.sender;
+    }
+    
+    modifier onlyOwner() {
+        if(msg.sender == owner) {
+            _;
+        }
+    }
+    
+    modifier auctionMustBeRunning() {
+        require(auctionIsRunning);
+        _;
+    }
+    
+    function setAuctionRunning(bool _auctionIsRunning) onlyOwner public {
+        auctionIsRunning = _auctionIsRunning;
+    }
+    
+    function setTheOwner(address _address) onlyOwner public {
+            owner = _address;
+    }
+    
+    function payMeSomething() auctionMustBeRunning payable public {
         
-        /**
-         * From there would a bidding logic follow for items
-         * this is abbrevated for readability
-         * */
-     }
+    }
+    
+    function withdraw(address payable _to) onlyOwner public {
+            _to.transfer(1000000000000000000);
+    }
      
      
 }
