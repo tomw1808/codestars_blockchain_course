@@ -19,7 +19,7 @@ contract Variables {
     uint32 public myUint32 = 4294967295; //2**32-1
     uint256 public myUint256 = 2**256-1; //very long :) try!
     
-    int8 public myInt8 = 127; //-2**4 to 2**4-1
+    int8 public myInt8 = 127; //-2**7 to 2**7-1
     
     function myUintDivisionExample() public pure returns (uint8) {
         uint8 five = 5;
