@@ -7,13 +7,13 @@ contract C10Time {
      * https://solidity.readthedocs.io/en/v0.5.4/units-and-global-variables.html#time-units
      */
     uint startDate = now;
-    uint runDays = 10;
+    uint runDays = 10 days;
 
     function getTimestamp() public view returns(uint) {
         return now;
     }
     
     function isStillRunning() public view returns(bool) {
-        return (now <= (now + runDays * 1 days));
+        return now <= startDate + runDays;
     }
 }
