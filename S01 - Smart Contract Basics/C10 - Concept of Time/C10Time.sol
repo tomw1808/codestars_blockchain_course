@@ -14,6 +14,6 @@ contract C10Time {
     }
     
     function isStillRunning() public view returns(bool) {
-        return (now <= (now + runDays * 1 days));
+        return now <= startDate + (runDays * 1 days);
     }
 }
